@@ -26,9 +26,9 @@ function Header() {
     <header style={{ 
       maxWidth: '10000px', 
       margin: '0 auto 30px auto', 
-      backgroundColor: '#000000', 
+      backgroundColor: '#f8f8f8', 
       borderRadius: '0px', 
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+      boxShadow: '0 4px 6px -1px rgba(252, 252, 252, 0.1)',
     }}>
       
       {/* Contenedor del Carrusel / Slider */}
@@ -36,7 +36,7 @@ function Header() {
         position: 'relative', 
         width: '100%', 
         height: '400px', // Tu altura original de 400px
-        backgroundColor: '#f70909'
+        backgroundColor: '#ffffff'
       }}>
         {imagenes.map((imagen, indice) => (
           <div
@@ -66,11 +66,11 @@ function Header() {
           width: '100%',
           display: 'flex',
           justifyContent: 'center', 
-          gap: '10px',             
+          gap: '100px',             
           padding: '300px', // Corregido de 300px a 20px para que quepa perfectamente
           boxSizing: 'border-box',
-          zIndex: 100,               
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%)' 
+         // zIndex: 100,               
+         //background: 'linear-gradient(to bottom, rgba(245, 213, 213, 0.79) 0%, rgba(0,0,0,0) 100%)' 
         }}>
           
           {/* botón para el registro del personal */}
@@ -144,7 +144,7 @@ function Header() {
           top: 0,
           left: 0,
           width: '100%',
-          height: '100%', 
+          height: '50%', 
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -156,7 +156,7 @@ function Header() {
           <p style={{ margin: '5px 5px 5px 5px', fontSize: '80px', fontWeight: '500', textAlign: 'center', padding: '10px 40px' }}>
             FaCES
           </p>
-          <p style={{ margin: '5px 5px 5px 5px', fontSize: '20px', fontWeight: '450', textAlign: 'center', padding: '10px 20px' }}>
+          <p style={{ margin: '5px 5px 5px 5px', fontSize: '40px', fontWeight: '100', textAlign: 'center', padding: '10px 20px' }}>
             Facultad de Ciencias Económicas y Sociales
           </p>
           <h1 style={{ margin: '5px 0 0 0', fontSize: '25px', textAlign: 'center' }}>
@@ -174,16 +174,16 @@ function Header() {
 // ========================================================
 
 const estiloBoton = {
-  color: '#ffffff',
+  color: '#000000',
   textDecoration: 'none',
-  fontSize: '14px',
+  fontSize: '20px',
   fontWeight: '400',
   padding: '5px 25px', 
-  borderRadius: '200px', 
-  backgroundColor: 'rgb(121, 5, 5)', 
+  borderRadius: '1px', 
+  backgroundColor: 'rgba(255, 251, 251, 0.2)', 
   backdropFilter: 'blur(10px)', 
   transition: 'all 0.2s ease-in-out',
-  border: '1px solid rgb(0, 0, 0)',
+  border: '1px solid rgba(255, 255, 255, 0.02)',
   display: 'inline-block',
   cursor: 'hand',
 };
@@ -193,23 +193,23 @@ const estiloMenuDesplegable = {
   top: '90%', 
   left: '50%',
   transform: 'translateX(-50%)', 
-  backgroundColor: 'rgb(121, 5, 5)', 
+  backgroundColor: 'rgba(255, 251, 251, 0)', 
   minWidth: '10px',
   borderRadius: '5px',
-  padding: '10px 0',
+  padding: '20px 10px',
   margin: '8px 0 0 0',
   listStyle: 'none',
   boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
-  border: '1px solid rgb(3, 3, 3)',
-  zIndex: 1000,
+  border: '1px solid rgba(204, 188, 188, 0.2)',
+  zIndex: 10,
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
 };
 
 const estiloSubcategoria = {
-  color: '#ffffff',
+  color: '#000000',
   textDecoration: 'none',
-  fontSize: '12px',
+  fontSize: '15px',
   padding: '5px 5px',
   display: 'block',
   whiteSpace: 'nowrap',
@@ -217,7 +217,7 @@ const estiloSubcategoria = {
 };
 
 // Funciones para manejar el cambio de color al pasar el mouse por las subcategorías
-const hoverIn = (e) => e.target.style.backgroundColor = 'rgba(216, 96, 96, 0.4)'; // Color rojo UC translúcido
+const hoverIn = (e) => e.target.style.backgroundColor = 'rgba(153, 10, 10, 0.88)'; // Color rojo UC translúcido
 const hoverOut = (e) => e.target.style.backgroundColor = 'transparent'; // Sin fondo al salir del hover
 
 export default Header;
