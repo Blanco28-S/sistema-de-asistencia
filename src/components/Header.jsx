@@ -3,15 +3,16 @@ import React, { useState, useEffect } from 'react';
 function Header() {
   // Lista de tus imágenes en la carpeta public
   const imagenes = [
-    '/img1.png',
+    //'/img1.png',
     '/img2.png',
     //'/img3.png'
   ];
 
   const [indiceActual, setIndiceActual] = useState(0);
+  const [menuActivo, setMenuActivo] = useState(null); // Corregido: Limpiada la llave '}' que rompía el código
 
   // Efecto para que las imágenes cambien solas cada 10 segundos
-  useEffect(() => {
+  /*useEffect(() => {
     const temporizador = setInterval(() => {
       setIndiceActual((indiceAnterior) => 
         indiceAnterior === imagenes.length - 1 ? 0 : indiceAnterior + 1
@@ -19,24 +20,23 @@ function Header() {
     }, 10000); // 10000 milisegundos = 10 segundos
 
     return () => clearInterval(temporizador); // Limpieza al desmontar
-  }, [imagenes.length]);
+  }, [imagenes.length]);*/
 
   return (
     <header style={{ 
-      maxWidth: '1000px', 
+      maxWidth: '10000px', 
       margin: '0 auto 30px auto', 
-      backgroundColor: '#ffffff', 
-      borderRadius: '8px', 
+      backgroundColor: '#000000', 
+      borderRadius: '0px', 
       boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-      overflow: 'hidden' // Evita que las imágenes se salgan de las esquinas redondeadas
     }}>
       
       {/* Contenedor del Carrusel / Slider */}
       <div style={{ 
         position: 'relative', 
         width: '100%', 
-        height: '600px', // Puedes ajustar la altura aquí
-        backgroundColor: '#fa0303'
+        height: '400px', // Tu altura original de 400px
+        backgroundColor: '#f70909'
       }}>
         {imagenes.map((imagen, indice) => (
           <div
@@ -51,10 +51,92 @@ function Header() {
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               opacity: indiceActual === indice ? 1 : 0,
-              transition: 'opacity 1s ease-in-out', // Hace el efecto de desvanecimiento suave
+              transition: 'opacity 1s ease-in-out', 
             }}
           />
         ))}
+
+        {/* ======================================================== */}
+        {/* BARRA DE BOTONES EN LA CABECERA (NAVBAR) */}
+        {/* ======================================================== */}
+        <nav style={{
+          position: 'absolute', // Cambiado a absolute para que flote arriba sin empujar el texto central
+          top: 0,
+          left: 0,
+          width: '100%',
+          display: 'flex',
+          justifyContent: 'center', 
+          gap: '10px',             
+          padding: '300px', // Corregido de 300px a 20px para que quepa perfectamente
+          boxSizing: 'border-box',
+          zIndex: 100,               
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%)' 
+        }}>
+          
+          {/* botón para el registro del personal */}
+          <div 
+            onMouseEnter={() => setMenuActivo('registro')} 
+            onMouseLeave={() => setMenuActivo(null)}  
+            style={{ position: 'relative', display: 'inline-block' }}
+          >
+            <a href="#FormularioRegistro" target="_self" style={estiloBoton}>REGISTRO PERSONAL</a>
+            {menuActivo === 'registro' && (
+              <ul style={estiloMenuDesplegable}>
+                <li><a href="#NuevoRegistro" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>INSCRIBIR NUEVO</a></li>
+                <li><a href="#ModificarRegistro" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>MODIFICAR DATOS</a></li>
+              </ul>
+            )}
+          </div>
+
+          {/* botón para el tipo de asistencia hecha por el personal */}
+          <div 
+            onMouseEnter={() => setMenuActivo('asistencia')} 
+            onMouseLeave={() => setMenuActivo(null)}
+            style={{ position: 'relative', display: 'inline-block' }}
+          >
+            <a href="#TiposDeAsistencia" target="_self" style={estiloBoton}>TIPO DE ASISTENCIA</a>
+            {menuActivo === 'asistencia' && (
+              <ul style={estiloMenuDesplegable}>
+                <li><a href="#AsistenciaPuntual" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>A TIEMPO</a></li>
+                <li><a href="#AsistenciaRetrasoJustificado" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>CON RETRASO JUSTIFICADO</a></li>
+                <li><a href="#AsistenciaRetrasoInjustificada" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>CON RETRASO INJUSTIFICADO</a></li>
+              </ul>
+            )}
+          </div>
+
+          {/* botón para el tipo de inasistencia */}
+          <div 
+            onMouseEnter={() => setMenuActivo('inasistencia')} 
+            onMouseLeave={() => setMenuActivo(null)}
+            style={{ position: 'relative', display: 'inline-block' }}
+          >
+            <a href="#Inasistencia" target="_self" style={estiloBoton}>TIPO DE INASISTENCIA</a>
+            {menuActivo === 'inasistencia' && (
+              <ul style={estiloMenuDesplegable}>
+                <li><a href="#InasistenciaJustificada" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>JUSTIFICADA</a></li>
+                <li><a href="#InasistenciaInjustificada" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>INJUSTIFICADA</a></li>
+                <li><a href="#PermisosMedicos" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>PERMISO MÉDICO</a></li>
+              </ul>
+            )}
+          </div>
+
+          {/* botón para el tipo de reporte */}
+          <div 
+            onMouseEnter={() => setMenuActivo('reportes')} 
+            onMouseLeave={() => setMenuActivo(null)}
+            style={{ position: 'relative', display: 'inline-block' }}
+          >
+            <a href="#reportes" target="_self" style={estiloBoton}>TIPO DE REPORTE</a>
+            {menuActivo === 'reportes' && (
+              <ul style={estiloMenuDesplegable}>
+                <li><a href="#ReporteDiario" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>REPORTE DIARIO</a></li>
+                <li><a href="#ReporteSemanal" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>REPORTE SEMANAL</a></li>
+                <li><a href="#ReporteMensual" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>REPORTE MENSUAL</a></li>
+              </ul>
+            )}
+          </div>
+        
+        </nav>
 
         {/* Capa oscura encima de la imagen para que el texto se lea perfectamente */}
         <div style={{
@@ -62,26 +144,80 @@ function Header() {
           top: 0,
           left: 0,
           width: '100%',
-          height: '70%',
-          //backgroundColor: 'rgba(43, 108, 176, 0.4)', // Azul con transparencia
+          height: '100%', 
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          color: 'white',
-          textShadow: '0 2px 4px rgba(238, 4, 4, 0.83)'
+          color: 'red',
+          textShadow: '0 2px 4px rgb(255, 255, 255)',
+          zIndex: 5 // Por debajo de la navbar para que no bloquee los clics del menú
         }}>
-          <h1 style={{ margin: '0 0 10px 0', fontSize: '32px' }}>
-            Control de Asistencia
-          </h1>
-          <p style={{ margin: 0, fontSize: '18px', fontWeight: '500', textAlign: 'center', padding: '0 20px' }}>
-            FaCES - LA NUEVA VISION DE UNIVERSIDAD
+          <p style={{ margin: '5px 5px 5px 5px', fontSize: '80px', fontWeight: '500', textAlign: 'center', padding: '10px 40px' }}>
+            FaCES
           </p>
+          <p style={{ margin: '5px 5px 5px 5px', fontSize: '20px', fontWeight: '450', textAlign: 'center', padding: '10px 20px' }}>
+            Facultad de Ciencias Económicas y Sociales
+          </p>
+          <h1 style={{ margin: '5px 0 0 0', fontSize: '25px', textAlign: 'center' }}>
+             SISTEMA DE GESTIÓN DE ASISTENCIA - UNIVERSIDAD DE CARABOBO
+          </h1>
         </div>
       </div>
 
     </header>
   );
 }
+
+// ========================================================
+// AGREGADOS: ESTILOS Y FUNCIONES QUE FALTABAN DEFINIR
+// ========================================================
+
+const estiloBoton = {
+  color: '#ffffff',
+  textDecoration: 'none',
+  fontSize: '14px',
+  fontWeight: '400',
+  padding: '5px 25px', 
+  borderRadius: '200px', 
+  backgroundColor: 'rgb(121, 5, 5)', 
+  backdropFilter: 'blur(10px)', 
+  transition: 'all 0.2s ease-in-out',
+  border: '1px solid rgb(0, 0, 0)',
+  display: 'inline-block',
+  cursor: 'hand',
+};
+
+const estiloMenuDesplegable = {
+  position: 'absolute',
+  top: '90%', 
+  left: '50%',
+  transform: 'translateX(-50%)', 
+  backgroundColor: 'rgb(121, 5, 5)', 
+  minWidth: '10px',
+  borderRadius: '5px',
+  padding: '10px 0',
+  margin: '8px 0 0 0',
+  listStyle: 'none',
+  boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
+  border: '1px solid rgb(3, 3, 3)',
+  zIndex: 1000,
+  display: 'flex',
+  flexDirection: 'column'
+};
+
+const estiloSubcategoria = {
+  color: '#ffffff',
+  textDecoration: 'none',
+  fontSize: '12px',
+  padding: '5px 5px',
+  display: 'block',
+  whiteSpace: 'nowrap',
+  transition: 'background-color 0.2s ease',
+};
+
+// Funciones para manejar el cambio de color al pasar el mouse por las subcategorías
+const hoverIn = (e) => e.target.style.backgroundColor = 'rgba(216, 96, 96, 0.4)'; // Color rojo UC translúcido
+const hoverOut = (e) => e.target.style.backgroundColor = 'transparent'; // Sin fondo al salir del hover
 
 export default Header;

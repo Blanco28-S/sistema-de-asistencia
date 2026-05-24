@@ -68,7 +68,7 @@ function FormularioRegistro() {
   return (
     <div style={{ backgroundColor: 'white', padding: '25px', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', marginBottom: '25px' }}>
       <h3 style={{ marginTop: 50, color: '#af1010', borderBottom: '2px solid #000661', paddingBottom: '5px' }}>
-         Registro de Personal y Vinculación Biométrica
+         Registro de Personal
       </h3>
       
       <form onSubmit={manejarEnvio}>

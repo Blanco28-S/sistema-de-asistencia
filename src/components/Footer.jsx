@@ -36,8 +36,8 @@ function Footer() {
         fontSize: '12px'
       }}>
         <p style={{ margin: 0 }}>
-          &copy; {new Date().getFullYear()} - Sistema de Control de Asistencia. Todos los derechos reservados.
         </p>
+          &copy; {new Date().getFullYear()} - Todos los Derechos Reservados. Dirección de Tecnología, Información y Comunicación. Universidad de Carabobo.
       </div>
     </footer>
   );
