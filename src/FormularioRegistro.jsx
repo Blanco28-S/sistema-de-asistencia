@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 function FormularioRegistro() {
   const [usuario, setUsuario] = useState({
-    Cédula: '',
+    Cedula: '',
     RIF: '',
     Primer_Nombre: '',
     Segundo_Nombre: '',
@@ -29,7 +29,7 @@ function FormularioRegistro() {
   const manejarCambioDias = (dia, estaMarcado) => {
     let nuevosDias = [...(usuario.Horario_Asignado || [])];
 
-    if(estaMarcadp){
+    if(estaMarcado){
       if(nuevosDias.length < 3){ // Limitar a máximo 3 días
         nuevosDias.push(dia);
       }
@@ -82,7 +82,7 @@ function FormularioRegistro() {
 
   return (
     <div style={{ backgroundColor: 'white', padding: '25px', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', marginBottom: '25px' }}>
-      <h3 style={{ marginTop: 50, color: '#af1010', borderBottom: '2px solid #000661', paddingBottom: '5px' }}>
+      <h3 style={{ marginTop: 10, color: '#000000', borderBottom: '2px solid #000661', paddingBottom: '5px' }}>
          Registro de Personal
       </h3>
       
@@ -162,13 +162,36 @@ function FormularioRegistro() {
                 const limiteAlcanzado = diasSeleccionados.length >= 3;
 
                 return (
-                  <label key={dia} style={{ display: 'flex', alignItems: 'center', gap: '1px', cursor: 'pointer', fontSize: '20px' }}>
+                  <label 
+                    key={dia} 
+                    style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      gap: '6px', 
+                      cursor: (!estaMarcado && limiteAlcanzado) ? 'not-allowed' : 'pointer', 
+                      fontSize: '16px',
+                      padding: '8px 12px',
+                      // Color de fondo dinámico: Azul oscuro si está marcado, gris claro si no
+                      backgroundColor: estaMarcado ? '#000661' : '#e2e8f0', 
+                      // Color de texto dinámico: Blanco si está marcado, oscuro si no
+                      color: estaMarcado ? 'white' : '#4a5568',
+                      borderRadius: '6px',
+                      transition: 'all 0.2s ease',
+                      // Reducir opacidad si el límite se alcanzó y este día no está seleccionado
+                      opacity: (!estaMarcado && limiteAlcanzado) ? 0.5 : 1,
+                      border: estaMarcado ? '1px solid #000661' : '1px solid #cbd5e0'
+                    }}
+                  >
                     <input
                       type="checkbox"
                       value={dia}
                       checked={estaMarcado}
                       onChange={(e) => manejarCambioDias(dia, e.target.checked)}
                       disabled={!estaMarcado && limiteAlcanzado}
+                      style={{ 
+                        cursor: (!estaMarcado && limiteAlcanzado) ? 'not-allowed' : 'pointer',
+                        accentColor: '#af1010' // Cambia el color del check interno (funciona en navegadores modernos)
+                      }}
                     />
                     {dia}
                   </label>
@@ -185,7 +208,7 @@ function FormularioRegistro() {
         {/* ================= SECCIÓN DEL BIOMINI ================= */}
         <div style={{ 
           backgroundColor: '#eee5ea', 
-          border: '0px dashed  #000661', 
+          border: '0px dashed  #7e0303', 
           padding: '10px', 
           borderRadius: '6px', 
           marginBottom: '11px',
@@ -232,7 +255,7 @@ function FormularioRegistro() {
         <button 
           type="submit" 
           style={{ 
-            backgroundColor: huellaCapturada ? '#af1010' : ' #000661', 
+            backgroundColor: huellaCapturada ? '#9e4a4a' : ' #c96464', 
             color: huellaCapturada ? 'white' : '#718096', 
             border: 'none', 
             padding: '12px 20px', 

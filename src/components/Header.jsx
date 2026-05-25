@@ -4,8 +4,9 @@ function Header() {
   // Lista de tus imágenes en la carpeta public
   const imagenes = [
     //'/img1.png',
-    '/img2.png',
+    //'/img2.png',
     //'/img3.png'
+    '/ima.png'
   ];
 
   const [indiceActual, setIndiceActual] = useState(0);
@@ -149,17 +150,17 @@ function Header() {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          color: 'red',
-          textShadow: '0 2px 4px rgb(255, 255, 255)',
+          color: 'white',         //colores del texto faces - facul ....sociales
+          textShadow: '0 2px 4px rgb(0, 0, 0)',   //bordes o fonde del texto para que resalte más
           zIndex: 5 // Por debajo de la navbar para que no bloquee los clics del menú
         }}>
-          <p style={{ margin: '5px 5px 5px 5px', fontSize: '80px', fontWeight: '500', textAlign: 'center', padding: '10px 40px' }}>
+          <p style={{ margin: '5px 5px 5px 5px', fontSize: '100px', fontWeight: '500', textAlign: 'center', padding: '30px 60px' }}>
             FaCES
           </p>
-          <p style={{ margin: '5px 5px 5px 5px', fontSize: '40px', fontWeight: '100', textAlign: 'center', padding: '10px 20px' }}>
+          <p style={{ margin: '5px 5px 5px 5px', fontSize: '40px', fontWeight: '100', textAlign: 'center', padding: '5px 0px' }}>
             Facultad de Ciencias Económicas y Sociales
           </p>
-          <h1 style={{ margin: '5px 0 0 0', fontSize: '25px', textAlign: 'center' }}>
+          <h1 style={{ margin: '5px 0 0 0', fontSize: '30px', textAlign: 'center' }}>
              SISTEMA DE GESTIÓN DE ASISTENCIA - UNIVERSIDAD DE CARABOBO
           </h1>
         </div>
@@ -174,14 +175,14 @@ function Header() {
 // ========================================================
 
 const estiloBoton = {
-  color: '#000000',
+  color: '#ffffff',
   textDecoration: 'none',
   fontSize: '20px',
   fontWeight: '400',
   padding: '5px 25px', 
-  borderRadius: '1px', 
+  borderRadius: '22px', 
   backgroundColor: 'rgba(255, 251, 251, 0.2)', 
-  backdropFilter: 'blur(10px)', 
+  backdropFilter: 'blur(20px)', 
   transition: 'all 0.2s ease-in-out',
   border: '1px solid rgba(255, 255, 255, 0.02)',
   display: 'inline-block',
@@ -193,21 +194,21 @@ const estiloMenuDesplegable = {
   top: '90%', 
   left: '50%',
   transform: 'translateX(-50%)', 
-  backgroundColor: 'rgba(255, 251, 251, 0)', 
-  minWidth: '10px',
+  backgroundColor: 'rgba(202, 113, 113, 0.55)', 
+  minWidth: '20px',
   borderRadius: '5px',
-  padding: '20px 10px',
+  padding: '10px 5px',
   margin: '8px 0 0 0',
   listStyle: 'none',
   boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
-  border: '1px solid rgba(204, 188, 188, 0.2)',
+  border: '1px solid rgba(196, 65, 65, 0.17)',
   zIndex: 10,
   display: 'flex',
   flexDirection: 'column',
 };
 
 const estiloSubcategoria = {
-  color: '#000000',
+  color: '#ffffff',
   textDecoration: 'none',
   fontSize: '15px',
   padding: '5px 5px',
