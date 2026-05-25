@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+//este crea wl login y regirstro de usuario y marcaje
 function Login({ alIniciarSesion }) {
   // Estado para alternar entre 'login' y 'crear_cuenta' en el panel administrativo
   const [modoAdmin, setModoAdmin] = useState('login'); 
