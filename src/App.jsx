@@ -47,13 +47,20 @@ function App() {
 
       {/*nuevo encabezado modular */}
       <Header />
-
+    
+    {/* formulario y asistencia se les encapsulo en un id*/}
       <main style={{ maxWidth: '1000px', margin: '0 auto' }}>
-        {/* Sección del Formulario */}
-        <FormularioRegistro />
+    
+     {/* Sección del Formulario */}
+	<section id="formulario" style={{padding: '20px 0'}}>
+         <FormularioRegistro />
+	</section>
 
         {/* Sección de la Tabla y los Reportes descargables */}
-        <TablaAsistencia />
+        <section id="asistencia" style={{padding: '20px 0'}}>
+	 <TablaAsistencia />
+	</section>
+
       </main>
 
       {/*nuevo pie de página modular */}

@@ -23,7 +23,7 @@ function FormularioRegistro() {
 
   const manejarCambio = (e) => {
     const { name, value } = e.target;
-    setUsuario({ ...usuario, [name]: value });
+    setUsuario({...usuario, [name]: value });
   };
 
   const manejarCambioDias = (dia, estaMarcado) => {
@@ -83,7 +83,7 @@ function FormularioRegistro() {
   return (
     <div style={{ backgroundColor: 'white', padding: '25px', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', marginBottom: '25px' }}>
       <h3 style={{ marginTop: 10, color: '#000000', borderBottom: '2px solid #000661', paddingBottom: '5px' }}>
-         Registro de Personal
+         Registro de Personal 
       </h3>
       
       <form onSubmit={manejarEnvio}>
@@ -91,11 +91,11 @@ function FormularioRegistro() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
           <div>
             <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>Cédula</label>
-            <input type="text" name="Cedula" value={usuario.Cedula} onChange={manejarCambio} placeholder="V-12345678" style={estilosInput} required />
+            <input type="text" name="Cedula" value={usuario.Cedula || ""} onChange={manejarCambio} placeholder="V-12345678" style={estilosInput} required />
           </div>
           <div>
             <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>RIF</label>
-            <input type="text" name="RIF" value={usuario.RIF} onChange={manejarCambio} placeholder="J-12345678-0" style={estilosInput} required />
+            <input type="text" name="RIF" value={usuario.RIF || ""} onChange={manejarCambio} placeholder="J-12345678-0" style={estilosInput} required />
           </div>
         </div>
 
@@ -274,3 +274,6 @@ function FormularioRegistro() {
 }
 
 export default FormularioRegistro;
+
+
+
