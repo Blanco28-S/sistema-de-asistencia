@@ -1,3 +1,5 @@
+
+
 import { useState } from 'react';
 import FormularioRegistro from './FormularioRegistro';
 import TablaAsistencia from './TablaAsistencia';
