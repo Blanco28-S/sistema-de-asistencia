@@ -22,7 +22,6 @@ function Footer() {
       
         <div style={{ flex: '1', minWidth: '200px' }}>
           <h4 style={{ margin: '0 0 10px 0', color: '#000000', fontSize: '12px' }}>Contacto Técnico</h4>
-          <p style={{ margin: '5px 0' }}> Extensión: +58 424 447 9048</p>
           <p style={{ margin: '5px 0' }}> Correo: <a href="mailto:dticucfaces3@gmail.com" style={{ color: '#3182ce', textDecoration: 'none' }}>dticucfaces3@gmail.com</a></p>
         </div>
 

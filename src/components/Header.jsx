@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-function Header() {
+function Header({ cambiarSeccion }) {
   // Lista de tus imágenes en la carpeta public
-  const imagenes = [
-    //'/img1.png',
-    //'/img2.png',
-    //'/img3.png' //para poder subirlo a la repos
-    '/ima.png'
-  ];
+  const imagenes = ['/ima.png'];
 
   const [indiceActual, setIndiceActual] = useState(0);
   const [menuActivo, setMenuActivo] = useState(null); // Corregido: Limpiada la llave '}' que rompía el código
@@ -62,16 +57,16 @@ function Header() {
         {/* ======================================================== */}
         <nav style={{
           position: 'absolute', // Cambiado a absolute para que flote arriba sin empujar el texto central
-          top: 0,
+          top: '300px',
           left: 0,
           width: '100%',
           display: 'flex',
           justifyContent: 'center', 
           gap: '100px',             
-          padding: '300px', // Corregido de 300px a 20px para que quepa perfectamente
+          padding: '20px', // Corregido de 300px a 20px para que quepa perfectamente
           boxSizing: 'border-box',
-         // zIndex: 100,               
-         //background: 'linear-gradient(to bottom, rgba(245, 213, 213, 0.79) 0%, rgba(0,0,0,0) 100%)' 
+          zIndex: 200,               
+          
         }}>
           
           {/* botón para el registro del personal */}
@@ -80,11 +75,14 @@ function Header() {
             onMouseLeave={() => setMenuActivo(null)}  
             style={{ position: 'relative', display: 'inline-block' }}
           >
-            <a href="#FormularioRegistro" target="_self" style={estiloBoton}>REGISTRO PERSONAL</a>
+            {/*  Usamos onClick para ejecutar la función de App.jsx */}
+            <a href="#" onClick={(e) => { e.preventDefault(); cambiarSeccion('registro'); }} style={estiloBoton}>REGISTRO PERSONAL</a>
+            
             {menuActivo === 'registro' && (
               <ul style={estiloMenuDesplegable}>
-                <li><a href="#NuevoRegistro" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>INSCRIBIR NUEVO</a></li>
-                <li><a href="#ModificarRegistro" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>MODIFICAR DATOS</a></li>
+                {/* Aquí  hacer lo mismo en el futuro para sub-pantallas si quieres */}
+                <li><a href="#NuevoRegistro" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>INSCRIBIR NUEVO</a></li>
+                <li><a href="#ModificarRegistro" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>MODIFICAR DATOS</a></li>
               </ul>
             )}
           </div>
@@ -95,12 +93,12 @@ function Header() {
             onMouseLeave={() => setMenuActivo(null)}
             style={{ position: 'relative', display: 'inline-block' }}
           >
-            <a href="#TiposDeAsistencia" target="_self" style={estiloBoton}>TIPO DE ASISTENCIA</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); cambiarSeccion('asistencia'); }} style={estiloBoton}>TIPO DE ASISTENCIA</a>
             {menuActivo === 'asistencia' && (
               <ul style={estiloMenuDesplegable}>
-                <li><a href="#AsistenciaPuntual" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>A TIEMPO</a></li>
-                <li><a href="#AsistenciaRetrasoJustificado" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>CON RETRASO JUSTIFICADO</a></li>
-                <li><a href="#AsistenciaRetrasoInjustificada" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>CON RETRASO INJUSTIFICADO</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); cambiarSeccion('asistencia'); }} style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>A TIEMPO</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); cambiarSeccion('asistencia'); }} style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>CON RETRASO JUSTIFICADO</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); cambiarSeccion('asistencia'); }} style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>CON RETRASO INJUSTIFICADO</a></li>
               </ul>
             )}
           </div>
@@ -111,12 +109,12 @@ function Header() {
             onMouseLeave={() => setMenuActivo(null)}
             style={{ position: 'relative', display: 'inline-block' }}
           >
-            <a href="#Inasistencia" target="_self" style={estiloBoton}>TIPO DE INASISTENCIA</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); cambiarSeccion('inasistencia'); }} style={estiloBoton}>TIPO DE INASISTENCIA</a>
             {menuActivo === 'inasistencia' && (
               <ul style={estiloMenuDesplegable}>
-                <li><a href="#InasistenciaJustificada" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>JUSTIFICADA</a></li>
-                <li><a href="#InasistenciaInjustificada" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>INJUSTIFICADA</a></li>
-                <li><a href="#PermisosMedicos" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>PERMISO MÉDICO</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); cambiarSeccion('inasistencia'); }} style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>JUSTIFICADA</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); cambiarSeccion('inasistencia'); }} style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>INJUSTIFICADA</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); cambiarSeccion('inasistencia'); }} style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>PERMISO MÉDICO</a></li>
               </ul>
             )}
           </div>
@@ -127,12 +125,12 @@ function Header() {
             onMouseLeave={() => setMenuActivo(null)}
             style={{ position: 'relative', display: 'inline-block' }}
           >
-            <a href="#reportes" target="_self" style={estiloBoton}>TIPO DE REPORTE</a>
+            <a href="#" onClick={(e) => { e.preventDefault(); cambiarSeccion('reportes'); }} style={estiloBoton}>TIPO DE REPORTE</a>
             {menuActivo === 'reportes' && (
               <ul style={estiloMenuDesplegable}>
-                <li><a href="#ReporteDiario" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>REPORTE DIARIO</a></li>
-                <li><a href="#ReporteSemanal" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>REPORTE SEMANAL</a></li>
-                <li><a href="#ReporteMensual" target="_self" style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>REPORTE MENSUAL</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); cambiarSeccion('reportes'); }} style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>REPORTE DIARIO</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); cambiarSeccion('reportes'); }} style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>REPORTE SEMANAL</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); cambiarSeccion('reportes'); }} style={estiloSubcategoria} onMouseEnter={hoverIn} onMouseLeave={hoverOut}>REPORTE MENSUAL</a></li>
               </ul>
             )}
           </div>
@@ -145,7 +143,7 @@ function Header() {
           top: 0,
           left: 0,
           width: '100%',
-          height: '50%', 
+          height: '100%', 
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -175,18 +173,18 @@ function Header() {
 // ========================================================
 
 const estiloBoton = {
-  color: '#ffffff',
+  color: '#0a0a0a',
   textDecoration: 'none',
-  fontSize: '20px',
+  fontSize: '15px',
   fontWeight: '400',
   padding: '5px 25px', 
   borderRadius: '22px', 
-  backgroundColor: 'rgba(255, 251, 251, 0.2)', 
+  backgroundColor: 'rgba(227, 209, 209, 0)', 
   backdropFilter: 'blur(20px)', 
   transition: 'all 0.2s ease-in-out',
   border: '1px solid rgba(255, 255, 255, 0.02)',
   display: 'inline-block',
-  cursor: 'hand',
+  cursor: 'pointer',
 };
 
 const estiloMenuDesplegable = {
@@ -208,7 +206,7 @@ const estiloMenuDesplegable = {
 };
 
 const estiloSubcategoria = {
-  color: '#ffffff',
+  color: '#000000',
   textDecoration: 'none',
   fontSize: '15px',
   padding: '5px 5px',

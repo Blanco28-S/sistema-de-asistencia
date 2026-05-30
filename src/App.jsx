@@ -1,16 +1,17 @@
-
-
 import { useState } from 'react';
 import FormularioRegistro from './FormularioRegistro';
 import TablaAsistencia from './TablaAsistencia';
 import Header from './components/Header';
-//import VistaAsistencia from './VistaAsistencia';
 import Footer from './components/Footer';
 import Login from './components/Login';
 
 function App() {
   // 3. Creamos el estado para saber si el administrador ya ingresó (inicia en false)
   const [estaAutenticado, setEstaAutenticado] = useState(false);
+
+  // ¡AQUÍ ESTABA EL ERROR! Faltaba declarar el estado de la sección activa.
+  // Inicia en 'inicio' para que muestre el mensaje de bienvenida.
+  const [seccionActiva, setSeccionActiva] = useState('inicio');
 
   // 4. CONDICIÓN: Si NO está autenticado, muestra la pantalla dividida (Asistencia / Login Admin)
   if (!estaAutenticado) {
@@ -45,25 +46,38 @@ function App() {
         </button>
       </div>
 
-      {/*nuevo encabezado modular */}
-      <Header />
+      {/* Le pasamos la función setSeccionActiva al Header para que los botones funcionen */}
+      <Header cambiarSeccion={setSeccionActiva} />
     
-    {/* formulario y asistencia se les encapsulo en un id*/}
+      {/* main encapsula el renderizado de las vistas */}
       <main style={{ maxWidth: '1000px', margin: '0 auto' }}>
-    
-     {/* Sección del Formulario */}
-	<section id="formulario" style={{padding: '20px 0'}}>
-         <FormularioRegistro />
-	</section>
+
+        {/* RENDERIZADO CONDICIONAL: Solo se muestra el bloque que coincida con la seccionActiva */}
+        
+        {seccionActiva === 'inicio' && (
+          <div style={{ textAlign: 'center', marginTop: '50px', color: '#666' }}>
+            <h2>Bienvenido al Panel de Administración de FaCES</h2>
+            <p>Seleccione una opción en el menú superior para comenzar a trabajar.</p>
+          </div>
+        )}
+
+        {/* Sección del Formulario */}
+        {seccionActiva === 'registro' && (
+          <section id="formulario">
+            <FormularioRegistro />
+          </section>
+        )}
 
         {/* Sección de la Tabla y los Reportes descargables */}
-        <section id="asistencia" style={{padding: '20px 0'}}>
-	 <TablaAsistencia />
-	</section>
+        {seccionActiva === 'asistencia' && (
+          <section id="asistencia">
+            <TablaAsistencia />
+          </section>
+        )}
 
       </main>
 
-      {/*nuevo pie de página modular */}
+      {/* nuevo pie de página modular */}
       <Footer />  
     </div>
   );
