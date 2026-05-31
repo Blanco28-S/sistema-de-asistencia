@@ -1,7 +1,73 @@
 import { useState } from 'react';
 
+// 1. DICCIONARIO DE DATOS
+const estructuraOrganizativaDependiente = {
+  "GAE": {
+    "DIP": ["Depto de Investigación Básica", "Depto de Publicaciones"], // Agregué ejemplos aquí
+    "ERI": ["Relaciones Nacionales", "Convenios Internacionales"], // Y aquí
+    "Postgrado": [],
+    "AP": [],
+    "DDC": [],
+    "CPPPE": []
+  },
+  "GSSA": {
+    "DTIC": [],
+    "DAP": [],
+    "DAE": [],
+    "DAS": [],
+    "RRHH": [],
+    "BF": [],
+    "JP": []
+  },
+  "AFA": {
+    "CB": [],
+    "EACCP": [],
+    "Economia": [],
+    "RI": []
+  },
+  "UVP": {
+    "IIDMPJ": [],
+    "FDPE": [],
+    "FCEATE": []
+  }
+};
+
+// 2. DICCIONARIOS DE NOMBRES LARGOS (Para que en pantalla se vea bonito, pero internamente uses siglas)
+const nombresCuerpos = {
+  "GAE": "Gestión Académica Estratégica",
+  "GSSA": "Gestión de Servicios y Soporte",
+  "AFA": "Áreas de Formación Académica",
+  "UVP": "Unidades de Vinculación y Proyección"
+};
+
+const nombresDirecciones = {
+  "DIP": "Investigación y Producción Intelectual",
+  "ERI": "Extensión y Relaciones Interinstitucionales",
+  "Postgrado": "Postgrado",
+  "AP": "Asesor de Postgrado",
+  "DDC": "Docencia y Desarrollo Curricular",
+  "CPPPE": "Planes, Programas y Proyectos Especiales",
+  "DTIC": "Tecnología, Información y Comunicación",
+  "DAP": "Asuntos Profesorales",
+  "DAE": "Asuntos Estudiantiles",
+  "DAS": "Administración Sectorial",
+  "RRHH": "Recursos Humanos",
+  "BF": "Biblioteca FaCES",
+  "JP": "Jefatura de Prensa",
+  "CB": "Ciclo Básico",
+  "EACCP": "Adm. Comercial y Contaduría Pública",
+  "Economia": "Economía",
+  "RI": "Relaciones Industriales",
+  "IIDMPJ": "Instituto Manuel Pocaterra Jiménez",
+  "FDPE": "Fundación para el Desarrollo Especial",
+  "FCEATE": "Centro de Extensión y Asistencia (CEATE)"
+};
+
 function FormularioRegistro() {
   const [usuario, setUsuario] = useState({
+    Cuerpo_directivo: '',
+    Direccion: '',
+    Departamento: '', // Limpiamos el duplicado que tenías abajo
     Cedula: '',
     RIF: '',
     Primer_Nombre: '',
@@ -10,8 +76,6 @@ function FormularioRegistro() {
     Segundo_Apellido: '',
     Numero_de_Puesto: '', 
     Ingreso_al_Cargo: '',
-    Descripcion_del_Cargo: 'Administrativo', 
-    Departamento: 'Decanato', 
     Horario_Asignado: [], 
     Fecha_de_Nomina: '',
   });
@@ -22,10 +86,20 @@ function FormularioRegistro() {
 
   const manejarCambio = (e) => {
     const { name, value } = e.target;
-    setUsuario((prevUsuario) => ({
-      ...prevUsuario,
-      [name]: value
-    }));
+    setUsuario((prevUsuario) => {
+      const nuevoEstado = { ...prevUsuario, [name]: value };
+
+      // LÓGICA IMPECABLE: Si cambia el papá, borro a los hijos.
+      if (name === 'Cuerpo_directivo') {
+        nuevoEstado.Direccion = '';
+        nuevoEstado.Departamento = '';
+      }
+      if (name === 'Direccion') {
+        nuevoEstado.Departamento = '';
+      }
+
+      return nuevoEstado;
+    });
   };
 
   const manejarCambioDias = (dia, estaMarcado) => {
@@ -85,6 +159,55 @@ function FormularioRegistro() {
       
       <form onSubmit={manejarEnvio}>
         
+        {/* === SECCIÓN DE CASCADA === */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '15px' }}>
+          
+          {/* NIVEL 1: Cuerpos Directivos */}
+          <div>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>Cuerpo Directivo</label>
+            <select name="Cuerpo_directivo" value={usuario.Cuerpo_directivo} onChange={manejarCambio} style={estilosInput} required>
+              <option value="">-- Seleccione --</option>
+              {/* Aquí usamos map correctamente: Extrae 'GAE', 'GSSA', etc. */}
+              {Object.keys(estructuraOrganizativaDependiente).map((sigla) => (
+                <option key={sigla} value={sigla}>
+                  {nombresCuerpos[sigla]} ({sigla})
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* NIVEL 2: Dirección */}
+          <div>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>Dirección</label>
+            <select name="Direccion" value={usuario.Direccion} onChange={manejarCambio} style={estilosInput} disabled={!usuario.Cuerpo_directivo} required>
+              <option value="">-- Seleccione --</option>
+              {/* Si hay un Cuerpo seleccionado, extraemos solo SUS direcciones */}
+              {usuario.Cuerpo_directivo && Object.keys(estructuraOrganizativaDependiente[usuario.Cuerpo_directivo]).map((siglaDir) => (
+                <option key={siglaDir} value={siglaDir}>
+                  {nombresDirecciones[siglaDir]}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* NIVEL 3: Departamento */}
+          <div>
+            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>Departamento</label>
+            <select name="Departamento" value={usuario.Departamento} onChange={manejarCambio} style={estilosInput} disabled={!usuario.Direccion}>
+              <option value="">-- Seleccione --</option>
+              {/* Si hay una Dirección seleccionada, listamos su arreglo de departamentos */}
+              {usuario.Direccion && estructuraOrganizativaDependiente[usuario.Cuerpo_directivo][usuario.Direccion].map((depto) => (
+                <option key={depto} value={depto}>
+                  {depto}
+                </option>
+              ))}
+            </select>
+          </div>
+
+        </div>
+        {/* === FIN SECCIÓN CASCADA === */}
+
+        {/* Cédula y RIF */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
           <div>
             <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>Cédula</label>
@@ -96,6 +219,7 @@ function FormularioRegistro() {
           </div>
         </div>
 
+        {/* Nombres */}
         <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
           <div>
             <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>Primer Nombre</label>
@@ -107,6 +231,7 @@ function FormularioRegistro() {
           </div>
         </div>
 
+        {/* Apellidos */}
         <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
           <div>
             <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>Primer Apellido</label>
@@ -118,6 +243,7 @@ function FormularioRegistro() {
           </div>
         </div>
 
+        {/* Cargo */}
         <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
           <div>
             <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>Número de Puesto</label>
@@ -127,36 +253,16 @@ function FormularioRegistro() {
             <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>Fecha de Ingreso al Cargo</label>
             <input type="date" name="Ingreso_al_Cargo" value={usuario.Ingreso_al_Cargo} onChange={manejarCambio} style={estilosInput} required />
           </div>
-          
-          <div>
-            <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>Tipo de Cargo / Puesto</label>
-              <select name="Descripcion_del_Cargo" value={usuario.Descripcion_del_Cargo} onChange={manejarCambio} style={estilosInput}>
-                <option value="Administrativo">Administrativo</option>
-                <option value="Gerente">Gerente / Supervisor</option> 
-                <option value="Operativo">Personal Operativo</option>
-              </select>
-          </div>
-            <div>
-              <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>Departamento</label>
-              <select name="Departamento" value={usuario.Departamento} onChange={manejarCambio} style={estilosInput}>
-                <option value="Decanato">Decanato</option>
-                <option value="RRHH">Recursos Humanos</option>
-                <option value="Administracion">Administración</option>
-                <option value="Control_Estudio">Control de Estudio</option>
-                <option value="Detic">DETIC</option>
-              </select>
-            </div>
         </div>
 
+        {/* Horarios y Nómina */}
         <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
           <div>
             <label style={{display: 'block', marginBottom: '5px', fontWeight: 'bold', fontSize: '14px' }}>
               Horario Asignado (Selecciona 3 días)
             </label>
             <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '8px', padding: '5px 0' }}>
-              
               {['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'].map((dia) => {
-                
                 const diasSeleccionados = usuario.Horario_Asignado || [];
                 const estaMarcado = diasSeleccionados.includes(dia); 
                 const limiteAlcanzado = diasSeleccionados.length >= 3; 
@@ -195,9 +301,9 @@ function FormularioRegistro() {
           </div>
         </div>
 
+        {/* SECCIÓN DEL LECTOR BIOMÉTRICO */}
         <div style={{ backgroundColor: '#eee5ea', padding: '10px', borderRadius: '6px', marginBottom: '11px', textAlign: 'center' }}>
           <h4 style={{ margin: '0 0 10px 0', color: '#4a5168' }}> Integración BioMini</h4>
-          
           <button 
             type="button" 
             onClick={simularEscaneoBioMini}
@@ -209,21 +315,19 @@ function FormularioRegistro() {
           >
             {escaneando ? ' Coloque el dedo en el lector...' : ' Iniciar Escaneo de Huella'}
           </button>
-
           <div style={{ marginTop: '15px', fontSize: '14px' }}>
             {escaneando && <p style={{ color: '#dd6b20', fontWeight: 'bold', margin: 0 }}>Leyendo hardware BioMini SFR400... Espere.</p>}
-            
             {huellaCapturada && (
               <p style={{ color: '#38a169', fontWeight: 'bold', margin: 0 }}>
                  Huella vinculada con éxito. <br/>
                 <span style={{ fontSize: '11px', color: '#718096', fontWeight: 'normal' }}>Hash: {tokenHuella}</span>
               </p>
             )}
-
             {!huellaCapturada && !escaneando && <p style={{ color: '#e53e3e', margin: 0 }}> Estado: Lector listo, esperando huella digital.</p>}
           </div>
         </div>
 
+        {/* BOTÓN SUBMIT */}
         <button 
           type="submit" 
           disabled={!huellaCapturada} 

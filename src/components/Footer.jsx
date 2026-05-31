@@ -36,7 +36,7 @@ function Footer() {
       }}>
         <p style={{ margin: 0 }}>
         </p>
-          &copy; {new Date().getFullYear()} - Todos los Derechos Reservados. Dirección de Tecnología, Información y Comunicación. Universidad de Carabobo.
+          &copy; {new Date().getFullYear()} Por Dirección de Tecnología, Información y Comunicación DTIC. Universidad de Carabobo.
       </div>
     </footer>
   );

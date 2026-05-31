@@ -9,7 +9,6 @@ function App() {
   // 3. Creamos el estado para saber si el administrador ya ingresó (inicia en false)
   const [estaAutenticado, setEstaAutenticado] = useState(false);
 
-  // ¡AQUÍ ESTABA EL ERROR! Faltaba declarar el estado de la sección activa.
   // Inicia en 'inicio' para que muestre el mensaje de bienvenida.
   const [seccionActiva, setSeccionActiva] = useState('inicio');
 
@@ -33,7 +32,7 @@ function App() {
         <button 
           onClick={() => setEstaAutenticado(false)} 
           style={{ 
-            backgroundColor: '#af1010', 
+            backgroundColor: '#0f8fa0c7', 
             color: 'white', 
             border: 'none', 
             padding: '6px 14px', 
